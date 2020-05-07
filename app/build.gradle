@@ -1,0 +1,139 @@
+apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
+android {
+
+    productFlavors {
+        Tencent {//投放应用宝市场
+
+        }
+        Baidu {//投放百度市场
+
+        }
+        Wandoujia {
+                //投放豌豆荚市场
+        }
+        Vivo {//投放vivo市场
+
+        }
+        Oppo {//投放oppo市场
+
+        }
+        Xiaomi {//投放小米市场
+
+        }
+        Meizu {//投放魅族市场
+
+        }
+        Huawei {//投放华为应用市场
+
+        }
+        Lenovo {//投放联想市场
+
+        }
+        Letv {//投放乐视市场
+
+        }
+        Gionee {//投放金立市场
+
+        }
+        HiMarket {//投放安卓市场
+
+        }
+
+
+    }
+
+
+    productFlavors.all {
+        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file("C:\\Users\\Administrator\\Desktop\\mykey.mykey")
+            //key store
+            storePassword "android"
+            keyAlias "androiddebugkey"
+            keyPassword "android"
+        }
+        release {
+            storeFile file("C:\\Users\\Administrator\\Desktop\\mykey.mykey")
+            storePassword "android"
+            keyAlias "androiddebugkey"
+            keyPassword "android"
+        }
+    }
+
+
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+    defaultConfig {
+        applicationId "com.example.fanzhiyong20200506"
+        minSdkVersion 15
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        flavorDimensions "versionCode"
+    }
+    buildTypes {
+        debug {
+            minifyEnabled false //不启用混淆
+            // 签名配置
+            signingConfig signingConfigs.debug
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro',                    'proguard-fresco.pro'         }
+
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+}
+
+greendao {
+    schemaVersion 1  //版本
+    daoPackage 'com.example.fanzhiyong20200506.dao' // 一般为app包名+生成文件的文件夹名
+    targetGenDir 'src/main/java' //生成文件路径
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    // retrofit注解+封装okhttp依赖
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+//okhttp3
+    implementation 'com.squareup.okhttp3:okhttp:3.12.1'
+//gson数据解析器
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+//okhttp拦截器
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.1'
+
+    implementation 'com.jakewharton:butterknife:10.2.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
+//RxJava
+//gson数据解析器
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+//rxjava+rxandroid
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.4'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+//retrofit回调适配器采用rxjava进行处理
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
+
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    implementation 'com.android.support:design:29.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'org.greenrobot:greendao:3.2.2'
+    implementation 'org.greenrobot:greendao-generator:3.2.2'
+
+    implementation 'com.umeng.analytics:analytics:latest.integration'
+
+}
